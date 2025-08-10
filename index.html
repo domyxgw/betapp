@@ -1,28 +1,40 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <title>Edge Finder</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betting Analyzer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Rekomendowane zakłady</h1>
-  <form method="get">
-    Sport: <input name="sport" value="{{ request.args.get('sport', 'soccer') }}">
-    <button type="submit">Pokaż</button>
-  </form>
-  <table>
-    <tr><th>Mecz</th><th>Bukmacher</th><th>Typ</th><th>Kurs</th><th>Edge</th><th>Rekomendacja</th></tr>
-    {% for m in matches %}
-      <tr>
-        <td>{{ m.home }} – {{ m.away }}</td>
-        <td>{{ m.bookmaker }}</td>
-        <td>{{ m.selection }}</td>
-        <td>{{ "%.2f"|format(m.odds) }}</td>
-        <td>{{ "%.2f"|format(m.edge*100) }} %</td>
-        <td>{% if m.edge > 0.05 %}✅ Tak{% endif %}</td>
-      </tr>
-    {% endfor %}
-  </table>
+  <header>
+    <h1>Betting Analyzer</h1>
+    <p>Automatyczna analiza meczów z bukmacherów</p>
+  </header>
+
+  <main>
+    <section id="matches">
+      <h2>Propozycje do obstawienia</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Mecz</th>
+            <th>Kurs</th>
+            <th>Szansa (%)</th>
+            <th>Rekomendacja</th>
+          </tr>
+        </thead>
+        <tbody id="matches-table">
+          <!-- Dane zostaną wstawione przez JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Betting Analyzer</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
